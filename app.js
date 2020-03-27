@@ -13,18 +13,21 @@ const app = express();
 const config = require('./lib/config.js');
 
 mongoose.Promise = Promise;
-mongoose.connect(process.env.DB, {
-    useMongoClient: true
-});
+mongoose.connect(process.env.DB,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    } );
 
 const Products = require('./models/Products');
 const Cart = require('./lib/Cart');
 const Security = require('./lib/Security');
 
 const store = new MongoDBStore({
-    uri: process.env.DB,
+    uri: "mongodb://jueguiticos_api_user:LZnyfaACnHzPoOcY@jueguiticoscluster-fyjnt.mongodb.net/jueguiticosdb?retryWrites=true&w=majority",
     collection: config.db.sessions
-});
+}, { useNewUrlParser: true,
+    useUnifiedTopology: true} );
 
 app.disable('x-powered-by');
 
